@@ -1,0 +1,3 @@
+- The desired dimensionality reduction can be set using the parameter ```n_components```
+- 
+- 

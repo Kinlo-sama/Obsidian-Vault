@@ -1,0 +1,5 @@
+[[Random Forest]]
+[[Gradient Boosting]]
+[[SVM]]
+[[Regresión Logística]]
+[[Nearest Neighbors]]
