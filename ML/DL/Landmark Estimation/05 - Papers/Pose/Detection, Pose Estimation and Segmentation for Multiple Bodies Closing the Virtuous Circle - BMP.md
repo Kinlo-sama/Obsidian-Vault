@@ -29,7 +29,28 @@ Detección → Enmascara instancias → MaskPose → Keypoints → SAM2
 
 ---
 ## Parámetros 
+####  1. **Detector: RTMDet-L**
+- **Entrenamiento: Fine-tuning**
+    - **Épocas:** 10
+    - **Conjunto de datos:** COCO-human
+    - **Aumento de datos:** "instance-removal augmentation"
+- **Comparativa:** Se usó el mismo detector en experimentos top-down para una comparación justa.
 
+#### **2. Estimador de Postura: MaskPose (basado en ViTPose)**
+- **Entrenamiento:**
+    - **Épocas:** 210
+    - **Conjuntos de datos:** COCO, AIC y MPII  
+- **Generación de Máscaras:**
+    - **Problema:** MPII y AIC carecen de segmentación de _ground truth_.
+    - **Solución:** Se generan máscaras de _pseudo ground truth_ usando SAM2.
+    - **Prompt para SAM2:** Cajas delimitadoras (_bounding boxes_) y puntos clave visibles (_keypoints_) del _ground truth_. 
+    
+#### **3. Modelo de Segmentación: Segment Anything Model (SAM2)**
+- **Versión:** `sam2-hiera-base+` ("as is")
+- **Configuración de Post-procesamiento:**
+    - **Área máxima de hueco (_max hole area_):** 10        
+    - **Área máxima de partícula (_max sprinkle area_):** 50
+- **Procesamiento:** Cada instancia se procesa de forma independiente.
 ---
 ## Métricas de Evaluación 
 

@@ -1,9 +1,9 @@
 
 **[Indice​](obsidian://open?vault=Obsidian%20Vault&file=ML%2FDL%2FLandmark%20Estimation%2F05%20-%20Papers%2FPapers%20Index)**
-**Link code**: at https://github.com/ZhenglinZhou/STAR
-**Autores**: Zhenglin Zhou, Huaxia Li, Hong Liu, Nanyang Wang, Gang Yu, Rongrong Ji
-**Año**: Jun 5, 2023
-**Pages**: 14
+**Link code**: at 
+**Autores**: 
+**Año**: 
+**Pages**: 
 
 ---
 ## **""**
@@ -14,67 +14,47 @@
 ----
 ## Dataset 
 
-- COFW
-	-  1345 training imafges and 507 testing images with 29 landmarks
-- 300W
-	- 3148 training images and 689 test images with 68 landmarks
-- 300VW
-	-  To make a cross-dataset validation
-- WFLW
-	- 7500 training images and 2500 test images with 98 landmarks
 
 ---
 ## Parámetros 
 
-- Data augmentation
-	- Crop and resize: 256x256
-	- Random rotation: $18^\circ$
-	- Random scaling: $\pm10\%$
-	- Random crop: $\pm5\%$
-	- Random gray: $20\%$
-	- Random blur: $30\%$
-	- Random occlusion: $40\%$
-	- Random horizontal flip: $50\%$
-- Model
-	- four-stacked hourglass as the backbone
-		- module output a $64x64$ feature map
-		- recursive step in HG is set to 3
-	- Optimizer: Adam
-	- Initial rate: $1\times10^{-3}$
-		- Reduce the learning rate by 10 at epoch 200, 350 and 450
-	- 500 epochs
-- GPUs
-	- 4
-		- 32 GB NVIDIA Tesla V100
-	- Batch size: 16
 
 ---
 ## Métricas de Evaluación 
-- Normalized Mean Error (NME)
-	- inter-ocular 
-		- 300W y WFLW datasets
-	- inter-pupils
-		- COFW dataset
-- Faiture Rate (FR)
-	- set the threshold by $10\%$
-		- WFLW
-- Area Under Curve (AUC)
-	- set the treshold by $10\%$
+
 
 ---
 ## Figuras 
 
-![[Pasted image 20251019160257.png]]
-Figura 1. El impacto de la ambigüedad semántica. Visualizamos los resultados de cinco modelos entrenados con la misma arquitectura en el mismo entorno experimental. (1) La primera fila muestra los puntos de referencia faciales predichos para el Sr. Tony Stark, marcados como puntos rojos. El punto verde se refiere al valor medio correspondiente. (2) La segunda fila muestra los resultados de la distribución de probabilidad predicha (es decir, el mapa de calor) de uno de los modelos entrenados.
+![[Pasted image 20251121211939.png]]
+Figure 1: Definción de tipos de pixel 
 
-![[Pasted image 20251019160525.png]]
-Figura 2. Resumen de nuestro marco. Utilizamos una red de cuatro relojes de arena (HG) apilados. Para mitigar el impacto de la ambigüedad semántica, se aplica la pérdida STAR a cada módulo HG. (Mejor vista en color)
+![[Pasted image 20251121212030.png]]
+Figura 2: Comparación de la calidad del mapa de calor predicho. El modelo entrenado con MSE no logró predecir con precisión el mapa de calor alrededor de la mejilla izquierda, la parte inferior de la mejilla derecha y las cejas. Con la pérdida Adaptive Wing propuesta (Fig. 2d),
+el mapa de calor se vuelve mucho más nítido en los puntos de referencia.
 
-![[Pasted image 20251019163247.png]]
-Figura 3. Visualización de los resultados del PCA. Las flechas amarilla y azul indican el primer y segundo componente principal de la distribución discreta predicha, respectivamente. La longitud de la flecha corresponde a los valores propios correspondientes. Utilizamos (λ1 /λ2) para formular la ambigüedad, que se representa mediante el sombreado de la elipse azul. (Mejor visualización en color).
+![[Pasted image 20251121212132.png]]
+Figura 3: Descripción general de nuestro modelo. El HG apilado toma una imagen facial  recortada con el cuadro delimitador de referencia y genera un mapa de calor predictivo para cada punto de referencia. Se utiliza un canal adicional para predecir los límites faciales.
+Debido a limitaciones de espacio, omitimos la estructura detallada de la arquitectura del HG apilado. 
 
-![[Pasted image 20251019173258.png]]
-Figura 5. Resultados cualitativos de diferentes funciones de distancia con pérdida de STAR en el conjunto de datos WFLW. Los puntos verdes y rojos representan los puntos predichos y de referencia, respectivamente. Los círculos amarillos indican las fallas evidentes, que se solucionan con la pérdida de STAR. (Se visualiza mejor en color y con zoom).
+![[Pasted image 20251121212252.png]]
+Figura 4: Diferentes funciones de pérdida. Cuando y = 0, la pérdida de Wing adaptativa (morado) se comporta de forma similar a la pérdida MSE (rojo). Cuando y = 1, la pérdida de Wing adaptativa (verde) se comporta de forma similar a la pérdida de Wing (amarillo), pero el gradiente de la pérdida de Wing adaptativa es suave en el punto y = ŷ, como se muestra en la Figura 4b (se aprecia mejor en color).
 
-![[Pasted image 20251019173403.png]]
-Figura 6. Distribución de la varianza. Visualizamos el estadístico de varianza de cinco modelos entrenados en el mismo entorno experimental, con y sin pérdida de STAR. Las líneas roja y azul indican el valor medio correspondiente de la función de distancia l2 con y sin pérdida de STAR, respectivamente.
+![[Pasted image 20251121212418.png]]
+Figura 5: La parte no lineal de la pérdida de ala adaptativapuede adaptar su forma según los diferentes valores de y. A medida que y aumenta, la forma se asemeja más a la pérdida de ala, y la influencia de los pequeños errores (cerca del eje y)sigue siendo fuerte. A medida que y disminuye, la influencia de estos errores disminuye y la función de pérdida se comporta más
+como el error cuadrático medio (MSE).
+
+![[Pasted image 20251121212529.png]]
+Figura 6: Los píxeles importantes se generan dilatando H de la Figura 6a con una dilatación de 3x3 y luego binarizando a la Figura 6c con un umbral de 0,2. Para fines de visualización, todos los canales se combinan mediante max-pooling en un solo canal.
+
+![[Pasted image 20251121212934.png]]
+Figura 7: Visualizaciones en el conjunto de datos de prueba WFLW.
+
+x![[Pasted image 20251121213039.png]]
+Figura 8: CoodConv con información de contorno. Los contornos X e Y se generan a partir de los canales de coordenadas X e Y, respectivamente, mediante una máscara binaria creada a partir de la predicción de contorno del módulo Hourglass anterior. La máscara se genera aplicando un umbral de 0,05 a la predicción de contorno. (Se visualiza mejor en color).
+
+![[Pasted image 20251121213131.png]]
+Figura 9: Visualización de resultados 1. Filas 1-2: Conjunto de datos AFLW, filas 3-4: Conjunto de datos COFW, filas 5-6: Conjunto de datos 300W.
+
+![[Pasted image 20251121213204.png]]
+Figura 10: Visualización de resultados 2. Filas 1-2: conjunto de datos privado 300W, filas 3-4: conjunto de datos WFLW.

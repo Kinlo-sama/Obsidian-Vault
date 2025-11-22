@@ -1,5 +1,5 @@
 
-# **PENDIENTE**
+# **PENDIENTE y Excluido del tema**
 **[Indice​](obsidian://open?vault=Obsidian%20Vault&file=ML%2FDL%2FLandmark%20Estimation%2F05%20-%20Papers%2FPapers%20Index)**
 **Link code**: 
 **Autores**: Yaseen, Oh-Jin Kwon, Jaeho Kim, Jinhee Lee and Faiz Ullah

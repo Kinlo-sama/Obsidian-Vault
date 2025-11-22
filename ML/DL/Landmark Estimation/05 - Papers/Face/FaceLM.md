@@ -1,3 +1,3 @@
 
-1. [[Adaptive Wing Loss for Robust Face Alignment via Heatmap Regression]]
+1. [[STAR Loss Reducing Semantic Ambiguity in Facial Landmark Detection]]
 2. 
