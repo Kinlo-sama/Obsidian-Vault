@@ -1,29 +1,53 @@
 
 **[Indice​](obsidian://open?vault=Obsidian%20Vault&file=ML%2FDL%2FLandmark%20Estimation%2F05%20-%20Papers%2FPapers%20Index)**
-**Link code**: at 
-**Autores**: 
-**Año**: 
-**Pages**: 
+**Link code**:  https://github.com/protossw512/AdaptiveWingLoss
+**Autores**: Xinyao Wang, Liefeng Bo, Li Fuxin
+**Año**: 2020
+**Pages**: 16
 
 ---
-## **""**
+## **"A fixed loss function cannot achieve both properties simultaneously"**
 
 ---
 ## Proceso
 
+Se buscara llegar a lo siguiente:
+	Ground truth ≈ 1 → comportamiento como Wing (alta sensibilidad)
+	Ground truth ≈ 0 → comportamiento como MSE (baja sensibilidad)
+
 ----
 ## Dataset 
-
+COFW, 300W and WFLW
 
 ---
 ## Parámetros 
 
+En la función de perdida de se usa 
+![[Pasted image 20251122063123.png]]
+Con α = 2.1, ω = 14, ϵ = 1 y θ = 0.5
+
+
+#### **From scratch.**
+The input of the network is 256 ×256, 
+The output of each stacked HG is 64 ×64. 
+**Optimizer**: RMSProp|
+**Learning rate**: 1e-4 → 1e-5 (epoch 80) → 1e-6 (epoch 160)|
+**Momentum**: 0
+**Weight decay**: 1e-5
+**Epochs**: 240
+**Data augmentation**: Rotación (±50°), Translación (±25px), Flip (50%), Rescale (±15%), Gaussian blur, Noise, Occlusion
 
 ---
 ## Métricas de Evaluación 
 
+- **Normalized Mean Error (NME)**
+- **Failure Rate (FR)**
+- **Cumulative Error Distribution (CED)**
+
+
 
 ---
+
 ## Figuras 
 
 ![[Pasted image 20251121211939.png]]

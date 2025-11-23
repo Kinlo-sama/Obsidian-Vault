@@ -25,7 +25,7 @@
 
 - MS COCO dataset 250k anotaciones de personas  con 17 puntos principales 
 - MPII Human Pose Dataset con una división del dataset en un radio de 7:6 para train y val
----
+
 ## Parámetros 
 
 - Batch size 32 por GPU
